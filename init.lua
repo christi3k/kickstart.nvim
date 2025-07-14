@@ -1007,7 +1007,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
@@ -1035,6 +1035,11 @@ require('lazy').setup({
   },
 })
 
+-- ------------------------------
+-- setup custom plugins
+-- ------------------------------
+
+-- neo-tree
 require('neo-tree').setup {
   event_handlers = {
 
@@ -1047,6 +1052,19 @@ require('neo-tree').setup {
     },
   },
 }
+
+-- aerial
+require('aerial').setup {
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
+  end,
+}
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle left<CR>')
+vim.keymap.set('n', '<leader>aa', '<cmd>AerialNavToggle<CR>')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
