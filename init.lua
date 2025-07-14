@@ -84,14 +84,34 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
--- Set <space> as the leader key
+-- Put anything you want to happen only in Neovide here
+if vim.g.neovide then
+  vim.o.guifont = 'Hack Nerd Font Mono:h14'
+
+  vim.o.lines = 60
+  vim.o.columns = 145
+  --vim.cmd 'colorscheme base16-outrun-dark'
+  --vim.cmd 'colorscheme tokyonight'
+
+  --opacity settings
+  --vim.g.neovide_opacity = 0.8
+  --vim.g.neovide_normal_opacity = 0.8
+
+  --disable cursor animation
+  vim.g.neovide_cursor_animation_length = 0
+end
+
+--path to python3
+vim.g.python3_host_prog = '/Users/chkoehle/Bin/python/.venv/bin/python'
+
+-- Set the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = ','
+vim.g.maplocalleader = ','
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -165,6 +185,9 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- enable expandtab
+vim.o.expandtab = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -673,7 +696,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -977,7 +1000,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -1011,6 +1034,19 @@ require('lazy').setup({
     },
   },
 })
+
+require('neo-tree').setup {
+  event_handlers = {
+
+    {
+      event = 'file_open_requested',
+      handler = function()
+        -- auto close
+        require('neo-tree.command').execute { action = 'close' }
+      end,
+    },
+  },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

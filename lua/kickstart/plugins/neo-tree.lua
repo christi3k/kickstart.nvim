@@ -12,6 +12,8 @@ return {
   lazy = false,
   keys = {
     { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+    { '<leader>d', ':Neotree toggle right<CR>', desc = 'NeoTree toggle', silent = true },
+    { '<leader>n', ':Neotree buffers toggle top<CR>', desc = 'NeoTree buffer toggle', silent = true },
   },
   opts = {
     filesystem = {
@@ -21,5 +23,6 @@ return {
         },
       },
     },
+    close_if_last_window = true,
   },
 }
