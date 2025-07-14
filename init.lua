@@ -1041,6 +1041,9 @@ require('lazy').setup({
 
 -- neo-tree
 require('neo-tree').setup {
+  window = {
+    position = 'right',
+  },
   event_handlers = {
 
     {
